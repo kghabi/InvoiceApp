@@ -1,11 +1,14 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import '../Add.css';
 import { toast } from 'react-toastify';
-import { Formik, Form, Field, ErrorMessage } from 'formik';
+import { Formik, Form, Field } from 'formik';
 import * as Yup from 'yup';
 import axios from 'axios';
+import { useParams } from 'react-router-dom';
 
-const AddClient = () => {
+const EdClient = () => {
+  let { id } = useParams();
+
   const initialValues = {
     name: '',
     address: '',
@@ -14,65 +17,72 @@ const AddClient = () => {
     website: '',
   };
 
+  const [state, setstate] = useState(initialValues);
+  const [loading, setloading] = useState(false);
+
   const validationSchema = Yup.object().shape({
-    name: Yup.string().required('You must input a name').min(5).max(20),
-    address: Yup.string().required('You must input a valid address').min(5).max(40),
+    name: Yup.string().min(5).max(20),
+    address: Yup.string().min(5).max(40),
     email: Yup.string().email(),
-    contact: Yup.number().required('You must input a phone number'),
+    contact: Yup.number(),
     website: Yup.string().url(),
   });
 
   const onSubmit = (data) => {
-    axios.post('http://localhost:8080/api/clients', data).then((response) => {
-      toast.success('Client added successfuly', { icon: '🚀',  autoClose: 1000});
-    });
+    axios
+      .put(`http://localhost:8080/api/clients/${id}`, data)
+      .then((response) => {
+        toast.success('Client Updated successfuly', { icon: '🚀',  autoClose: 1000});
+      });
   };
 
-  return (
+  useEffect(() => {
+    setloading(true);
+    axios.get(`http://localhost:8080/api/clients/${id}`).then((response) => {
+      setstate(response.data);
+      setloading(false);
+    });
+  }, [id]);
+
+  return loading ? (
+    <div>loading ...</div>
+  ) : (
     <div className='Formik'>
       <Formik
-        initialValues={initialValues}
+        initialValues={state}
         onSubmit={onSubmit}
         validationSchema={validationSchema}
       >
         <Form>
           <label htmlFor='name'>Name</label>
-          <ErrorMessage name='name' component='div' className='errmsg' />
           <Field
             type='text'
             id='name'
             name='name'
-            placeholder='Client Name ...'
+            placeholder='Add a name ...'
           />
           <label htmlFor='address'>Address</label>
-          <ErrorMessage
-            name='address'
-            component='div'
-            className='errmsg'
-          />
           <Field
             type='text'
             id='address'
             name='address'
-            placeholder='Add an address ...'
+            placeholder='Add a address ...'
           />
           <label htmlFor='email'>Email</label>
           <Field
             type='email'
             id='email'
             name='email'
-            placeholder='Add a email ...'
+            placeholder='Add email ...'
           />
           <label htmlFor='contact'>Contact</label>
-          <ErrorMessage name='contact' component='div' className='errmsg' />
           <Field
             type='number'
             id='contact'
             name='contact'
-            placeholder='Add a phone number ...'
+            placeholder='Add a contact ...'
           />
           <label htmlFor='website'>WebSite</label>
-          <ErrorMessage name='website' component='div' className='errmsg' />
           <Field
             type='text'
             id='website'
@@ -86,4 +96,4 @@ const AddClient = () => {
   );
 };
 
-export default AddClient;
+export default EdClient;

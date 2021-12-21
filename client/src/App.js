@@ -12,6 +12,7 @@ import Invoice from './pages/AddInvoice';
 import AddSettings from './pages/AddSettings';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import AddInvDetails from './pages/AddInvDetails';
+import EditClient from './pages/EditClient';
 
 function App() {
   return (
@@ -29,6 +30,7 @@ function App() {
             element={<OrgaSettings />}
           />
           <Route path='/settings/invoice_details' element={<AddInvDetails />} />
+          <Route path='/api/edit_client/:id' element={<EditClient />} />
           <Route path='/exportPdf' element={<ExportPdf />} />
           <Route path='/settings' element={<AddSettings />} />
         </Routes>

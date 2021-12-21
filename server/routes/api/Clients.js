@@ -11,10 +11,10 @@ router.post('/', async (req, res) => {
   res.json(client);
 });
 
-// @route    Post api/clients
+// @route    Put api/clients
 // @desc     Edit a client
 // @access   Public
-router.post('/:id', async (req, res) => {
+router.put('/:id', async (req, res) => {
   try {
     const Client = await Clients.findByPk(req.params.id);
     const id = req.params.id;
@@ -22,7 +22,7 @@ router.post('/:id', async (req, res) => {
       name: req.body.name,
       address: req.body.address,
       email: req.body.email,
-      phone: req.body.phone,
+      contact: req.body.contact,
       website: req.body.website,
     };
     if (!Client) {
