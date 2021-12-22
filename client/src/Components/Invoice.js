@@ -2,52 +2,82 @@ import React from 'react';
 import axios from 'axios';
 import { useEffect, useState } from 'react';
 import { AiOutlineForm, AiOutlineDelete } from 'react-icons/ai';
+import { toast } from 'react-toastify';
 
 function Invoice() {
   const [listOfPosts, setListOfPosts] = useState([]);
+
+  function getList() {
+    axios.get('http://localhost:8080/api/posts').then((response) => {
+      setListOfPosts(response.data);
+    });
+  }
+  useEffect(() => {
+    getList();
+  }, []);
 
   useEffect(() => {
     axios.get('http://localhost:8080/api/posts').then((response) => {
       setListOfPosts(response.data);
     });
   }, []);
+
+  const deleteInvoice = (id) => {
+    axios.delete(`http://localhost:8080/api/posts/${id}`).then((response) => {
+      getList();
+      toast.success('Client was deleted', { icon: '🚀', autoClose: 1000 });
+    });
+  };
+
   return (
     <div className='container'>
       <h2 style={{ marginLeft: '10px' }}>List Of Invoices</h2>
 
       <table className='customers'>
-        <tr>
-          <th>#</th>
-          <th>ِClient Name</th>
-          <th>Invoice Number</th>
-          <th>Currency</th>
-          <th>Description</th>
-          <th>Quantity</th>
-          <th>Price</th>
-          <th>.</th>
-          <th>.</th>
-        </tr>
+        <thead>
+          <tr>
+            <th>#</th>
+            <th>ِClient Name</th>
+            <th>Invoice Number</th>
+            <th>Currency</th>
+            <th>Description</th>
+            <th>Quantity</th>
+            <th>Price</th>
+            <th>.</th>
+            <th>.</th>
+          </tr>
+        </thead>
         {listOfPosts.map((value, key) => {
           return (
-            <tr>
-              <td>{value.id}</td>
-              <td>{value.clientName}</td>
-              <td>{value.invoiceNumber}</td>
-              <td>{value.currency}</td>
-              <td>{value.description}</td>
-              <td>{value.quantity}</td>
-              <td>{value.price}</td>
-              <td>
-                <button>
-                  <AiOutlineForm />
-                </button>
-              </td>
-              <td>
-                <button>
-                  <AiOutlineDelete />
-                </button>
-              </td>
-            </tr>
+            <tbody>
+              <tr>
+                <td>{value.id}</td>
+                <td>{value.clientName}</td>
+                <td>{value.invoiceNumber}</td>
+                <td>{value.currency}</td>
+                <td>{value.description}</td>
+                <td>{value.quantity}</td>
+                <td>{value.price}</td>
+                <td>
+                  <button
+                    onClick={() =>
+                      (window.location.href = '/api/edit_invoice/' + value.id)
+                    }
+                  >
+                    <AiOutlineForm />
+                  </button>
+                </td>
+                <td>
+                  <button
+                    onClick={() => {
+                      deleteInvoice(value.id);
+                    }}
+                  >
+                    <AiOutlineDelete />
+                  </button>
+                </td>
+              </tr>
+            </tbody>
           );
         })}
       </table>

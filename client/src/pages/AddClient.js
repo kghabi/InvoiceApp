@@ -1,6 +1,5 @@
 import React from 'react';
 import '../Add.css';
-import { toast } from 'react-toastify';
 import { Formik, Form, Field, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
 import axios from 'axios';
@@ -16,16 +15,17 @@ const AddClient = () => {
 
   const validationSchema = Yup.object().shape({
     name: Yup.string().required('You must input a name').min(5).max(20),
-    address: Yup.string().required('You must input a valid address').min(5).max(40),
+    address: Yup.string()
+      .required('You must input a valid address')
+      .min(5)
+      .max(40),
     email: Yup.string().email(),
     contact: Yup.number().required('You must input a phone number'),
     website: Yup.string().url(),
   });
 
   const onSubmit = (data) => {
-    axios.post('http://localhost:8080/api/clients', data).then((response) => {
-      toast.success('Client added successfuly', { icon: '🚀',  autoClose: 1000});
-    });
+    axios.post('http://localhost:8080/api/clients', data);
   };
 
   return (
@@ -35,7 +35,7 @@ const AddClient = () => {
         onSubmit={onSubmit}
         validationSchema={validationSchema}
       >
-        <Form>
+        <Form style={{ margin: '10px' }}>
           <label htmlFor='name'>Name</label>
           <ErrorMessage name='name' component='div' className='errmsg' />
           <Field
@@ -45,11 +45,7 @@ const AddClient = () => {
             placeholder='Client Name ...'
           />
           <label htmlFor='address'>Address</label>
-          <ErrorMessage
-            name='address'
-            component='div'
-            className='errmsg'
-          />
+          <ErrorMessage name='address' component='div' className='errmsg' />
           <Field
             type='text'
             id='address'
@@ -79,7 +75,11 @@ const AddClient = () => {
             name='website'
             placeholder='Add a website ...'
           />
-          <input type='submit' value='Save' />
+          <input
+            type='submit'
+            value='Save'
+            onClick={() => (window.location.href = '/')}
+          />
         </Form>
       </Formik>
     </div>

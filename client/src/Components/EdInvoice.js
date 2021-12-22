@@ -1,12 +1,12 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import '../Add.css';
 import { Formik, Form, Field, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
 import axios from 'axios';
-import { useNavigate } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 
-const AddInvoice = () => {
-  const navigate = useNavigate();
+const EdInvoice = () => {
+  let { id } = useParams();
 
   const initialValues = {
     clientName: '',
@@ -16,6 +16,9 @@ const AddInvoice = () => {
     quantity: '',
     price: '',
   };
+
+  const [state, setstate] = useState(initialValues);
+  const [loading, setloading] = useState(false);
 
   const validationSchema = Yup.object().shape({
     clientName: Yup.string().required('You must input a name').min(5).max(20),
@@ -27,14 +30,23 @@ const AddInvoice = () => {
   });
 
   const onSubmit = (data) => {
-    axios.post('http://localhost:8080/api/posts', data).then((response) => {
-      navigate('/');
-    });
+    axios.post(`http://localhost:8080/api/posts/${id}`, data);
   };
-  return (
+
+  useEffect(() => {
+    setloading(true);
+    axios.get(`http://localhost:8080/api/posts/${id}`).then((response) => {
+      setstate(response.data);
+      setloading(false);
+    });
+  }, [id]);
+
+  return loading ? (
+    <div>loading ...</div>
+  ) : (
     <div className='Formik'>
       <Formik
-        initialValues={initialValues}
+        initialValues={state}
         onSubmit={onSubmit}
         validationSchema={validationSchema}
       >
@@ -89,11 +101,15 @@ const AddInvoice = () => {
             name='price'
             placeholder='Add The Price ...'
           />
-          <input type='submit' value='Save' />
+          <input
+            type='submit'
+            value='Save'
+            onClick={() => (window.location.href = '/')}
+          />
         </Form>
       </Formik>
     </div>
   );
 };
 
-export default AddInvoice;
+export default EdInvoice;

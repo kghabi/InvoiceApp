@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react';
 import '../Add.css';
-import { toast } from 'react-toastify';
 import { Formik, Form, Field } from 'formik';
 import * as Yup from 'yup';
 import axios from 'axios';
@@ -29,11 +28,7 @@ const EdClient = () => {
   });
 
   const onSubmit = (data) => {
-    axios
-      .put(`http://localhost:8080/api/clients/${id}`, data)
-      .then((response) => {
-        toast.success('Client Updated successfuly', { icon: '🚀',  autoClose: 1000});
-      });
+    axios.put(`http://localhost:8080/api/clients/${id}`, data);
   };
 
   useEffect(() => {
@@ -89,7 +84,11 @@ const EdClient = () => {
             name='website'
             placeholder='Add a website ...'
           />
-          <input type='submit' value='Save' />
+          <input
+            type='submit'
+            value='Save'
+            onClick={() => (window.location.href = '/')}
+          />
         </Form>
       </Formik>
     </div>
