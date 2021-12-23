@@ -1,16 +1,22 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import '../Add.css';
 import { Formik, Form, Field, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
 import axios from 'axios';
+import { useParams } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
 
-const AddInvDetails = () => {
+const EdInvDetails = () => {
   const navigate = useNavigate();
+  let { id } = useParams();
+
   const initialValues = {
     defaultCurrency: '',
     invoiceNotes: '',
   };
+
+  const [state, setstate] = useState(initialValues);
+  const [loading, setloading] = useState(false);
 
   const validationSchema = Yup.object().shape({
     defaultCurrency: Yup.string().required('Currency required'),
@@ -19,16 +25,28 @@ const AddInvDetails = () => {
 
   const onSubmit = (data) => {
     axios
-      .post('http://localhost:8080/api/settings/invoice_details', data)
+      .put(`http://localhost:8080/api/settings/invoice_details/${id}`, data)
       .then((response) => {
         navigate('/');
       });
   };
 
-  return (
+  useEffect(() => {
+    setloading(true);
+    axios
+      .get(`http://localhost:8080/api/settings/invoice_details/${id}`)
+      .then((response) => {
+        setstate(response.data);
+        setloading(false);
+      });
+  }, [id]);
+
+  return loading ? (
+    <div>loading ...</div>
+  ) : (
     <div className='Formik'>
       <Formik
-        initialValues={initialValues}
+        initialValues={state}
         onSubmit={onSubmit}
         validationSchema={validationSchema}
       >
@@ -66,4 +84,4 @@ const AddInvDetails = () => {
   );
 };
 
-export default AddInvDetails;
+export default EdInvDetails;

@@ -18,12 +18,12 @@ const AddInvoice = () => {
   };
 
   const validationSchema = Yup.object().shape({
-    clientName: Yup.string().required('You must input a name').min(5).max(20),
-    invoiceNumber: Yup.number().required(),
+    clientName: Yup.string().required('Name is required').min(5).max(20),
+    invoiceNumber: Yup.number().required('Invoice number is required'),
     currency: Yup.string(),
     description: Yup.string(),
-    quantity: Yup.number().required().positive(),
-    price: Yup.number().required().positive(),
+    quantity: Yup.number().required('Quantity is required').positive(),
+    price: Yup.number().required('Price is required').positive(),
   });
 
   const onSubmit = (data) => {

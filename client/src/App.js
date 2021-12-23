@@ -14,6 +14,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import AddInvDetails from './pages/AddInvDetails';
 import EditClient from './pages/EditClient';
 import EditInvoice from './pages/EditInvoice';
+import EditInvDetails from './pages/EditInvDetails';
 
 function App() {
   return (
@@ -33,6 +34,7 @@ function App() {
           <Route path='/settings/invoice_details' element={<AddInvDetails />} />
           <Route path='/api/edit_client/:id' element={<EditClient />} />
           <Route path='/api/edit_invoice/:id' element={<EditInvoice />} />
+          <Route path='/api/edit_invDetails/:id' element={<EditInvDetails />} />
           <Route path='/exportPdf' element={<ExportPdf />} />
           <Route path='/settings' element={<AddSettings />} />
         </Routes>

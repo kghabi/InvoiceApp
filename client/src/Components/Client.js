@@ -28,7 +28,6 @@ function Client() {
       <table className='customers'>
         <thead>
           <tr>
-            <th>#</th>
             <th>Name</th>
             <th>Address</th>
             <th>Email</th>
@@ -43,7 +42,6 @@ function Client() {
           return (
             <tbody>
               <tr>
-                <td>{value.id}</td>
                 <td>{value.name}</td>
                 <td>{value.address}</td>
                 <td>{value.email}</td>

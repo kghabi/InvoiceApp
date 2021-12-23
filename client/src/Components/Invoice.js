@@ -25,7 +25,7 @@ function Invoice() {
   const deleteInvoice = (id) => {
     axios.delete(`http://localhost:8080/api/posts/${id}`).then((response) => {
       getList();
-      toast.success('Client was deleted', { icon: '🚀', autoClose: 1000 });
+      toast.success('Invoice was deleted', { icon: '🚀', autoClose: 1000 });
     });
   };
 
@@ -36,7 +36,6 @@ function Invoice() {
       <table className='customers'>
         <thead>
           <tr>
-            <th>#</th>
             <th>ِClient Name</th>
             <th>Invoice Number</th>
             <th>Currency</th>
@@ -51,7 +50,6 @@ function Invoice() {
           return (
             <tbody>
               <tr>
-                <td>{value.id}</td>
                 <td>{value.clientName}</td>
                 <td>{value.invoiceNumber}</td>
                 <td>{value.currency}</td>

@@ -48,6 +48,31 @@ router.get('/:id', async (req, res) => {
   }
 });
 
+// @route    Put api/settings/invoice_details/:id
+// @desc     Edit invoiveDetails
+// @access   Public
+router.put('/:id', async (req, res) => {
+  try {
+    const invoice_details = await InvoiceDetails.findByPk(req.params.id);
+    const id = req.params.id;
+    const updateInvDetails = {
+      defaultCurrency: req.body.defaultCurrency,
+      invoiceNotes: req.body.invoiceNotes,
+    };
+    if (!invoice_details) {
+      return res.status(404).json({ msg: 'InvDetails not found' });
+    }
+    await InvoiceDetails.update(updateInvDetails, { where: { id: id } });
+    res.json({ msg: 'InvDetails Updated' });
+  } catch (err) {
+    console.error(err.message);
+    if (err.kind === 'ObjectId') {
+      return res.status(404).json({ msg: 'InvDetails not found' });
+    }
+
+    res.status(500).send('Server Error');
+  }
+});
 
 // @route    Delete api/settings/invoice_details/:id
 // @desc     Delete invoice_details by ID

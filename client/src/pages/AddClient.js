@@ -3,8 +3,10 @@ import '../Add.css';
 import { Formik, Form, Field, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
 import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
 
 const AddClient = () => {
+  const navigate = useNavigate();
   const initialValues = {
     name: '',
     address: '',
@@ -14,18 +16,20 @@ const AddClient = () => {
   };
 
   const validationSchema = Yup.object().shape({
-    name: Yup.string().required('You must input a name').min(5).max(20),
+    name: Yup.string().required('Name is required').min(5).max(20),
     address: Yup.string()
-      .required('You must input a valid address')
+      .required('Address is required')
       .min(5)
       .max(40),
-    email: Yup.string().email(),
-    contact: Yup.number().required('You must input a phone number'),
+    email: Yup.string().email('You must put a valid email').required('Email is required'),
+    contact: Yup.string().min(8).max(20).required('Phone is required'),
     website: Yup.string().url(),
   });
 
   const onSubmit = (data) => {
-    axios.post('http://localhost:8080/api/clients', data);
+    axios.post('http://localhost:8080/api/clients', data).then((response) => {
+      navigate('/');
+    });
   };
 
   return (
@@ -53,6 +57,7 @@ const AddClient = () => {
             placeholder='Add an address ...'
           />
           <label htmlFor='email'>Email</label>
+          <ErrorMessage name='email' component='div' className='errmsg' />
           <Field
             type='email'
             id='email'
@@ -75,11 +80,7 @@ const AddClient = () => {
             name='website'
             placeholder='Add a website ...'
           />
-          <input
-            type='submit'
-            value='Save'
-            onClick={() => (window.location.href = '/')}
-          />
+          <input type='submit' value='Save' />
         </Form>
       </Formik>
     </div>

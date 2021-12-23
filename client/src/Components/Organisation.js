@@ -19,19 +19,21 @@ const Organisation = () => {
   };
 
   const validationSchema = Yup.object().shape({
-    organisationName: Yup.string()
-      .required('You must input a name')
-      .min(5)
-      .max(30),
+    organisationName: Yup.string().required('Name is required').min(5).max(30),
     organisationAddress: Yup.string()
-      .required('You must input a valid address')
+      .required('Address is required')
       .min(5)
       .max(40),
-    organisationEmail: Yup.string().email().required('email is required'),
-    organisationPhone: Yup.number().required('You must put a phone number'),
-    organisationFax: Yup.number().required('You must put a fax number'),
+    organisationEmail: Yup.string()
+      .email('You must put a valid email')
+      .required('email is required'),
+    organisationPhone: Yup.string()
+      .min(8)
+      .max(20)
+      .required('Phone is required'),
+    organisationFax: Yup.string().min(8).max(20).required('Fax is required'),
     organisationRegistrationNumber: Yup.string().required(
-      'Registration number required'
+      'Registration number is required'
     ),
     organisationIban: Yup.string(),
     organisationCommission: Yup.string(),
@@ -39,9 +41,22 @@ const Organisation = () => {
   });
 
   const [state, setstate] = useState({});
-  const onSubmit = () => {
+
+  const onSubmit = (values) => {
     let data = new FormData();
     data.append('file', state);
+    data.append('organisationName', values.organisationName);
+    data.append('organisationAddress', values.organisationAddress);
+    data.append('organisationEmail', values.organisationEmail);
+    data.append('organisationPhone', values.organisationPhone);
+    data.append('organisationFax', values.organisationFax);
+    data.append(
+      'organisationRegistrationNumber',
+      values.organisationRegistrationNumber
+    );
+    data.append('organisationIban', values.organisationIban);
+    data.append('organisationCommission', values.organisationCommission);
+    data.append('organisationTva', values.organisationTva);
 
     axios
       .post('http://localhost:8080/api/settings/organisation_settings', data)

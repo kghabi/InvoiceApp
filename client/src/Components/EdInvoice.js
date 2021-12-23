@@ -4,8 +4,10 @@ import { Formik, Form, Field, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
 import axios from 'axios';
 import { useParams } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 const EdInvoice = () => {
+  const navigate = useNavigate();
   let { id } = useParams();
 
   const initialValues = {
@@ -21,16 +23,20 @@ const EdInvoice = () => {
   const [loading, setloading] = useState(false);
 
   const validationSchema = Yup.object().shape({
-    clientName: Yup.string().required('You must input a name').min(5).max(20),
-    invoiceNumber: Yup.number().required(),
+    clientName: Yup.string().required('Name is required').min(5).max(20),
+    invoiceNumber: Yup.number().required('Invoice number is required'),
     currency: Yup.string(),
     description: Yup.string(),
-    quantity: Yup.number().required().positive(),
-    price: Yup.number().required().positive(),
+    quantity: Yup.number().required('Quantity is required').positive(),
+    price: Yup.number().required('Price is required').positive(),
   });
 
   const onSubmit = (data) => {
-    axios.post(`http://localhost:8080/api/posts/${id}`, data);
+    axios
+      .put(`http://localhost:8080/api/posts/${id}`, data)
+      .then((response) => {
+        navigate('/');
+      });
   };
 
   useEffect(() => {
@@ -101,11 +107,7 @@ const EdInvoice = () => {
             name='price'
             placeholder='Add The Price ...'
           />
-          <input
-            type='submit'
-            value='Save'
-            onClick={() => (window.location.href = '/')}
-          />
+          <input type='submit' value='Save' />
         </Form>
       </Formik>
     </div>

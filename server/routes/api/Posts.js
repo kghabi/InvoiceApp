@@ -14,7 +14,7 @@ router.post('/', async (req, res) => {
 // @route    Post api/posts
 // @desc     Edit a post
 // @access   Public
-router.post('/:id', async (req, res) => {
+router.put('/:id', async (req, res) => {
   try {
     const Post = await Posts.findByPk(req.params.id);
     const id = req.params.id;
