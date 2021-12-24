@@ -32,9 +32,7 @@ const Organisation = () => {
       .max(20)
       .required('Phone is required'),
     organisationFax: Yup.string().min(8).max(20).required('Fax is required'),
-    organisationRegistrationNumber: Yup.string().required(
-      'Registration number is required'
-    ),
+    organisationRegistrationNumber: Yup.string(),
     organisationIban: Yup.string(),
     organisationCommission: Yup.string(),
     organisationTva: Yup.string(),
@@ -154,7 +152,7 @@ const Organisation = () => {
             className='errmsg'
           />
           <Field
-            type='text'
+            type='number'
             id='organisationRegistrationNumber'
             name='organisationRegistrationNumber'
             placeholder='Add a registration number ...'

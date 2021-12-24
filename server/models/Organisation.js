@@ -10,13 +10,13 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.STRING,
     },
     organisationPhone: {
-      type: DataTypes.INTEGER,
+      type: DataTypes.STRING,
     },
     organisationFax: {
-      type: DataTypes.INTEGER,
+      type: DataTypes.STRING,
     },
     organisationRegistrationNumber: {
-      type: DataTypes.INTEGER,
+      type: DataTypes.STRING,
     },
     organisationIban: {
       type: DataTypes.STRING,
