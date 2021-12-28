@@ -11,6 +11,7 @@ initRoutes(app);
 app.use(express.json());
 app.use(cors());
 app.use('/resources', express.static('resources'));
+
 // Define Routers
 const postRouter = require('./routes/api/Posts');
 const clientRouter = require('./routes/api/Clients');

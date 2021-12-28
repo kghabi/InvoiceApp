@@ -5,12 +5,14 @@ import { FcDeleteDatabase } from 'react-icons/fc';
 import { toast } from 'react-toastify';
 
 const OrgaSettings = () => {
-  
-  const deleteOrg = () => {
+  const deleteOrg = (e) => {
     axios
       .delete('http://localhost:8080/api/settings/organisation_settings')
-      .then(() => {
-        alert('delete success');
+      .then((response) => {
+        toast.success('All Organisations was deleted', {
+          icon: '🚀',
+          autoClose: 1000,
+        });
       });
   };
   return (
@@ -19,9 +21,7 @@ const OrgaSettings = () => {
       <div>
         <button
           style={{ marginLeft: '1100px', position: 'absolute', top: '800px' }}
-          onClick={() => {
-            deleteOrg();
-          }}
+          onClick={deleteOrg}
         >
           <FcDeleteDatabase size='40px' />
         </button>
