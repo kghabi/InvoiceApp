@@ -32,7 +32,9 @@ const Organisation = () => {
       .max(20)
       .required('Phone is required'),
     organisationFax: Yup.string().min(8).max(20).required('Fax is required'),
-    organisationRegistrationNumber: Yup.string(),
+    organisationRegistrationNumber: Yup.string().required(
+      'Registration number is required'
+    ),
     organisationIban: Yup.string(),
     organisationCommission: Yup.string(),
     organisationTva: Yup.string(),
@@ -59,7 +61,9 @@ const Organisation = () => {
     axios
       .post('http://localhost:8080/api/settings/organisation_settings', data)
       .then((response) => {
-        toast.success('Organisation settings added successfuly');
+        toast.success('Organisation settings added successfuly', {
+          autoClose: 1000,
+        });
       });
   };
 

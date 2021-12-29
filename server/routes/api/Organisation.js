@@ -4,6 +4,7 @@ const uploadController = require('../../controllers/upload');
 const upload = require('../../middleware/upload');
 const db = require('../../models');
 const Organisation = db.organisations;
+const fs = require('fs-extra');
 
 let routes = (app) => {
   router.post(
