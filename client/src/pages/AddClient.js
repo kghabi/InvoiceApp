@@ -17,11 +17,10 @@ const AddClient = () => {
 
   const validationSchema = Yup.object().shape({
     name: Yup.string().required('Name is required').min(5).max(20),
-    address: Yup.string()
-      .required('Address is required')
-      .min(5)
-      .max(40),
-    email: Yup.string().email('You must put a valid email').required('Email is required'),
+    address: Yup.string().required('Address is required').min(5).max(40),
+    email: Yup.string()
+      .email('You must put a valid email')
+      .required('Email is required'),
     contact: Yup.string().min(8).max(20).required('Phone is required'),
     website: Yup.string().url(),
   });

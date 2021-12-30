@@ -49,6 +49,16 @@ let routes = (app) => {
       await Organisation.destroy({
         where: {},
       });
+      // delete the two images folders content
+      fs.emptyDir('resources/uploads', (err) => {
+        if (err) return console.error(err);
+        console.log('success!');
+      });
+      fs.emptyDir('resources/tmp', (err) => {
+        if (err) return console.error(err);
+        console.log('success!');
+      });
+
       res.json({ msg: 'Organisation removed' });
     } catch (err) {
       console.error(err.message);

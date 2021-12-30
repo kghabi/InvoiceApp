@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import '../Add.css';
 import { Formik, Form, Field, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
@@ -7,6 +7,13 @@ import { useNavigate } from 'react-router-dom';
 
 const AddInvoice = () => {
   const navigate = useNavigate();
+  const [listOfClients, setlistOfClients] = useState([]);
+
+  useEffect(() => {
+    axios.get('http://localhost:8080/api/clients').then((response) => {
+      setlistOfClients(response.data);
+    });
+  }, []);
 
   const initialValues = {
     clientName: '',
@@ -18,7 +25,7 @@ const AddInvoice = () => {
   };
 
   const validationSchema = Yup.object().shape({
-    clientName: Yup.string().required('Name is required').min(5).max(20),
+    clientName: Yup.string().required('Name is required'),
     invoiceNumber: Yup.number().required('Invoice number is required'),
     currency: Yup.string(),
     description: Yup.string(),
@@ -39,14 +46,13 @@ const AddInvoice = () => {
         validationSchema={validationSchema}
       >
         <Form>
-          <label htmlFor='clientName'>Name</label>
+          <label htmlFor='clientName'>Client Name</label>
           <ErrorMessage name='clientName' component='div' className='errmsg' />
-          <Field
-            type='text'
-            id='clientName'
-            name='clientName'
-            placeholder='Client Name ...'
-          />
+          <Field as='select' type='text' id='clientName' name='clientName'>
+            {listOfClients.map((value, key) => (
+              <option value={value.name}>{value.name}</option>
+            ))}
+          </Field>
           <label htmlFor='invoiceNumber'>Invoice Number</label>
           <ErrorMessage
             name='invoiceNumber'
