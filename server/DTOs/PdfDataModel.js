@@ -2,7 +2,7 @@ class PdfDataModel {
   items = []; // array of new PdfDataModelItems  => from react js app
   organisation; // organization from db => name , adress , email , phone , fax , matricule Fiscal (Mf),logo , commission , tva (%), droit de timbre
   client; // from react js app =>
-  note =""
+  note = '';
 }
 class PdfDataModelItem {
   description = '';

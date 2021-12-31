@@ -3,7 +3,7 @@ const pdfService = require('../service/pdf-service');
 const { PdfDataModel, PdfDataModelItem } = require('../DTOs/PdfDataModel');
 const router = express.Router();
 
-router.get('/invoice', async (req, res, next) => {
+router.get('/exportPdf/invoice', async (req, res, next) => {
   const stream = res.writeHead(200, {
     'Content-Type': 'application/pdf',
     'Content-Disposition': 'attachment; filename=invoice.pdf',

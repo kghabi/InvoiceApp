@@ -44,7 +44,6 @@ const Organisation = () => {
 
   const onSubmit = (values) => {
     let data = new FormData();
-    data.append('file', state);
     data.append('organisationName', values.organisationName);
     data.append('organisationAddress', values.organisationAddress);
     data.append('organisationEmail', values.organisationEmail);
@@ -57,6 +56,7 @@ const Organisation = () => {
     data.append('organisationIban', values.organisationIban);
     data.append('organisationCommission', values.organisationCommission);
     data.append('organisationTva', values.organisationTva);
+    data.append('file', state);
 
     axios
       .post('http://localhost:8080/api/settings/organisation_settings', data)

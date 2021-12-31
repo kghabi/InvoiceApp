@@ -22,16 +22,9 @@ const uploadFiles = async (req, res) => {
       organisationCommission: req.body.organisationCommission,
       organisationTva: req.body.organisationTva,
       imageType: req.file.mimetype,
-      imageName: req.file.originalname,
-      imageData: fs.readFileSync(
-        __basedir + '\\resources\\uploads\\' + req.file.filename
-      ),
+      imageName: req.body.organisationName,
     }).then((image) => {
-      fs.writeFileSync(
-        __basedir + '\\resources\\tmp\\' + image.imageName,
-        image.imageData
-      );
-
+console.log(image)
       return res.send(`File has been uploaded.`);
     });
   } catch (error) {

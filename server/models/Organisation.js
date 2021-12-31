@@ -33,9 +33,6 @@ module.exports = (sequelize, DataTypes) => {
     imageName: {
       type: DataTypes.STRING,
     },
-    imageData: {
-      type: DataTypes.BLOB('long'),
-    },
   });
 
   return Organisation;
