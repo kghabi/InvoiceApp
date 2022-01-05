@@ -1,5 +1,5 @@
 module.exports = (sequelize, DataTypes) => {
-  const Posts = sequelize.define('Posts', {
+  const Invoices = sequelize.define('Invoices', {
     clientName: {
       type: DataTypes.STRING,
       allowNull: false,
@@ -26,5 +26,5 @@ module.exports = (sequelize, DataTypes) => {
     },
   });
 
-  return Posts;
+  return Invoices;
 };

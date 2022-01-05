@@ -4,11 +4,11 @@ import { AiOutlineForm, AiOutlineDelete } from 'react-icons/ai';
 import { toast } from 'react-toastify';
 
 function Invoice() {
-  const [listOfPosts, setListOfPosts] = useState([]);
+  const [listOfInvoices, setListOfInvoices] = useState([]);
 
   function getList() {
-    axios.get('http://localhost:8080/api/posts').then((response) => {
-      setListOfPosts(response.data);
+    axios.get('http://localhost:8080/api/invoices').then((response) => {
+      setListOfInvoices(response.data);
     });
   }
   useEffect(() => {
@@ -16,13 +16,13 @@ function Invoice() {
   }, []);
 
   useEffect(() => {
-    axios.get('http://localhost:8080/api/posts').then((response) => {
-      setListOfPosts(response.data);
+    axios.get('http://localhost:8080/api/invoices').then((response) => {
+      setListOfInvoices(response.data);
     });
   }, []);
 
   const deleteInvoice = (id) => {
-    axios.delete(`http://localhost:8080/api/posts/${id}`).then((response) => {
+    axios.delete(`http://localhost:8080/api/invoices/${id}`).then((response) => {
       getList();
       toast.success('Invoice was deleted', { icon: '🚀', autoClose: 1000 });
     });
@@ -45,7 +45,7 @@ function Invoice() {
             <th>.</th>
           </tr>
         </thead>
-        {listOfPosts.map((value, key) => {
+        {listOfInvoices.map((value, key) => {
           return (
             <tbody>
               <tr>

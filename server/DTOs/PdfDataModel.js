@@ -1,16 +1,34 @@
-class PdfDataModel {
-  items = []; // array of new PdfDataModelItems  => from react js app
-  organisation; // organization from db => name , adress , email , phone , fax , matricule Fiscal (Mf),logo , commission , tva (%), droit de timbre
-  client; // from react js app =>
-  note = '';
-}
-class PdfDataModelItem {
-  description = '';
-  quantity = 1;
-  unitPrice = 0.0;
-  totalPrice = 0.0;
-}
-module.exports = {
-  PdfDataModel,
-  PdfDataModelItem,
+const invoice = {
+  client: {
+    name: '',
+    address: '',
+    email: '',
+    contact: '',
+    website: '',
+  },
+  invoice: {
+    clientName: '',
+    number: '',
+    currency: '',
+    description: '',
+    quantity: '',
+    price: '',
+  },
+  organisation: {
+    image: '',
+    name: '',
+    address: '',
+    email: '',
+    phone: '',
+    fax: '',
+    registrationNumber: '',
+    iban: '',
+    commission: '',
+    tva: '',
+  },
+  item: {
+    subtotal: 8000,
+    paid: 0,
+    invoice_nr: 1234,
+  },
 };

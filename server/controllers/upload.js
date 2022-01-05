@@ -5,8 +5,6 @@ const Image = db.organisations;
 
 const uploadFiles = async (req, res) => {
   try {
-    console.log(req.file);
-
     if (req.file == undefined) {
       return res.send(`You must select a file.`);
     }
@@ -23,8 +21,7 @@ const uploadFiles = async (req, res) => {
       organisationTva: req.body.organisationTva,
       imageType: req.file.mimetype,
       imageName: req.body.organisationName,
-    }).then((image) => {
-console.log(image)
+    }).then(() => {
       return res.send(`File has been uploaded.`);
     });
   } catch (error) {

@@ -34,7 +34,7 @@ const AddInvoice = () => {
   });
 
   const onSubmit = (data) => {
-    axios.post('http://localhost:8080/api/posts', data).then((response) => {
+    axios.post('http://localhost:8080/api/invoices', data).then((response) => {
       navigate('/');
     });
   };

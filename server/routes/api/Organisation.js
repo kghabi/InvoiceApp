@@ -17,7 +17,6 @@ let routes = (app) => {
   router.get('/api/settings/organisation_settings', async (req, res) => {
     const organisation = await Organisation.findAll();
     res.json(organisation);
-    console.log(organisation);
   });
 
   // get Organisation By Id

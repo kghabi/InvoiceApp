@@ -33,7 +33,7 @@ const EdInvoice = () => {
 
   const onSubmit = (data) => {
     axios
-      .put(`http://localhost:8080/api/posts/${id}`, data)
+      .put(`http://localhost:8080/api/invoices/${id}`, data)
       .then((response) => {
         navigate('/');
       });
@@ -41,7 +41,7 @@ const EdInvoice = () => {
 
   useEffect(() => {
     setloading(true);
-    axios.get(`http://localhost:8080/api/posts/${id}`).then((response) => {
+    axios.get(`http://localhost:8080/api/invoices/${id}`).then((response) => {
       setstate(response.data);
       setloading(false);
     });
