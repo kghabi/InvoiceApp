@@ -19,8 +19,7 @@ const uploadFiles = async (req, res) => {
       organisationIban: req.body.organisationIban,
       organisationCommission: req.body.organisationCommission,
       organisationTva: req.body.organisationTva,
-      imageType: req.file.mimetype,
-      imageName: req.body.organisationName,
+      imageName:  `${req.body.organisationName + '.'}${req.file.originalname.split('.').pop()}`
     }).then(() => {
       return res.send(`File has been uploaded.`);
     });

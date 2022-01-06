@@ -27,9 +27,6 @@ module.exports = (sequelize, DataTypes) => {
     organisationTva: {
       type: DataTypes.STRING,
     },
-    imageType: {
-      type: DataTypes.STRING,
-    },
     imageName: {
       type: DataTypes.STRING,
     },

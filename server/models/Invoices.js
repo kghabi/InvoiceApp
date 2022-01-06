@@ -12,7 +12,7 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.STRING,
       allowNull: false,
     },
-    description: {
+    items: {
       type: DataTypes.STRING,
       allowNull: false,
     },

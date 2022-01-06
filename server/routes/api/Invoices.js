@@ -22,7 +22,7 @@ router.put('/:id', async (req, res) => {
       client: req.body.client,
       invoiceNumber: req.body.invoiceNumber,
       currency: req.body.currency,
-      description: req.body.description,
+      items: req.body.items,
       quantity: req.body.quantity,
       price: req.body.price,
     };
@@ -46,15 +46,7 @@ router.put('/:id', async (req, res) => {
 // @access   Public
 router.get('/', async (req, res) => {
   const listOfInvoices = await Invoices.findAll();
-  res.json(
-    // return the values widhout date
-    listOfInvoices.map((el) => {
-      let el1 = { ...el.dataValues };
-      delete el1.createdAt;
-      delete el1.updatedAt;
-      return el1;
-    })
-  );
+  res.json(listOfInvoices);
 });
 
 // @route    Get api/invoices/:id
@@ -73,6 +65,27 @@ router.get('/:id', async (req, res) => {
     console.error(err.message);
     if (err.kind === 'ObjectId') {
       return res.status(404).json({ msg: 'Invoice not found' });
+    }
+    res.status(500).send('Server Error');
+  }
+});
+
+// @route    Get api/invoices/clientName
+// @desc     Get invoice by clientName
+// @access   Public
+router.get('/:name', async (req, res) => {
+  try {
+    const Invoice = await Invoices.findOne();
+
+    if (!Invoice) {
+      return res.status(404).json({ msg: ' not found' });
+    }
+
+    res.json(Invoice);
+  } catch (err) {
+    console.error(err.message);
+    if (err.kind === 'ObjectId') {
+      return res.status(404).json({ msg: ' not found' });
     }
     res.status(500).send('Server Error');
   }

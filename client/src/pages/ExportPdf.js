@@ -36,6 +36,8 @@ const ExportPdf = () => {
     organisationCommission: '',
     organisationTva: '',
     imageName: '',
+    invoiceNumber: '',
+    createdAt: '',
   };
 
   const onSubmit = (data) => {};
@@ -52,125 +54,83 @@ const ExportPdf = () => {
 
           <Row gutter={10} style={{ marginTop: 32 }}>
             <Col span={8}>
-              <Field
-                as='select'
-                type='text'
-                id='organisationName'
-                name='organisationName'
-              >
-                {listOfOrganisations.map((value, key) => (
-                  <option value={value.organisationName}>
-                    {value.organisationName}
-                  </option>
-                ))}
-              </Field>
-              <Field
-                as='select'
-                type='text'
-                id='organisationAddress'
-                name='organisationAddress'
-              >
-                {listOfOrganisations.map((value, key) => (
-                  <option value={value.organisationAddress}>
-                    {value.organisationAddress}
-                  </option>
-                ))}
-              </Field>
-              <Field
-                as='select'
-                type='text'
-                id='organisationEmail'
-                name='organisationEmail'
-              >
-                {listOfOrganisations.map((value, key) => (
-                  <option value={value.organisationEmail}>
-                    {value.organisationEmail}
-                  </option>
-                ))}
-              </Field>
-              <Field
-                as='select'
-                type='text'
-                id='organisationPhone'
-                name='organisationPhone'
-              >
-                {listOfOrganisations.map((value, key) => (
-                  <option value={value.organisationPhone}>
-                    {value.organisationPhone}
-                  </option>
-                ))}
-              </Field>
-              <Field
-                as='select'
-                type='text'
-                id='organisationFax'
-                name='organisationFax'
-              >
-                {listOfOrganisations.map((value, key) => (
-                  <option value={value.organisationFax}>
-                    {value.organisationFax}
-                  </option>
-                ))}
-              </Field>
-              <Field
-                as='select'
-                type='text'
-                id='organisationRegistraionNumber'
-                name='organisationRegistraionNumber'
-              >
-                {listOfOrganisations.map((value, key) => (
-                  <option value={value.organisationRegistraionNumber}>
-                    {value.organisationRegistraionNumber}
-                  </option>
-                ))}
-              </Field>
-              <Field
-                as='select'
-                type='text'
-                id='organisationIban'
-                name='organisationIban'
-              >
-                {listOfOrganisations.map((value, key) => (
-                  <option value={value.organisationIban}>
-                    {value.organisationIban}
-                  </option>
-                ))}
-              </Field>
-              <Field
-                as='select'
-                type='text'
-                id='organisationCommission'
-                name='organisationCommission'
-              >
-                {listOfOrganisations.map((value, key) => (
-                  <option value={value.organisationCommission}>
-                    {value.organisationCommission}
-                  </option>
-                ))}
-              </Field>
-              <Field
-                as='select'
-                type='text'
-                id='organisationTva'
-                name='organisationTva'
-              >
-                {listOfOrganisations.map((value, key) => (
-                  <option value={value.organisationTva}>
-                    {value.organisationTva}
-                  </option>
-                ))}
-              </Field>
-              
+              {listOfOrganisations.map((value, key) => (
+                <div>
+                  <img
+                    className='image'
+                    src={`http://localhost:8080/resources/uploads/${value.imageName}`}
+                  />
+                  <h3>
+                    <b>{value.organisationName}</b>
+                  </h3>
+                  <div>
+                    <b>Address:</b> {value.organisationAddress}
+                  </div>
+                  <div>
+                    <b>Email:</b> {value.organisationEmail}
+                  </div>
+                  <div>
+                    <b>Phone:</b> {value.organisationPhone}
+                  </div>
+                  <div>
+                    <b>Fax:</b> {value.organisationFax}
+                  </div>
+                  <div>
+                    <b>R.Number:</b> {value.organisationRegistrationNumber}
+                  </div>
+                  <div>
+                    <b>Iban:</b> {value.organisationIban}
+                  </div>
+                </div>
+              ))}
             </Col>
             <Col span={8} offset={8}>
               <table>
                 <tr>
+                  <th>Choose Client :</th>
+                  <td>
+                    <Field
+                      as='select'
+                      type='text'
+                      id='clientName'
+                      name='clientName'
+                    >
+                      {listOfInvoices.map((value, key) => (
+                        <option value={value.clientName}>
+                          {value.clientName}
+                        </option>
+                      ))}
+                    </Field>
+                  </td>
+                </tr>
+                <tr>
                   <th>Invoice # :</th>
-                  <td>1</td>
+                  <td>
+                    <div>
+                      {listOfInvoices.map((value, key) => (
+                        <option value={value.invoiceNumber}>
+                          {value.invoiceNumber}
+                        </option>
+                      ))}
+                    </div>
+                  </td>
                 </tr>
                 <tr>
                   <th>Invoice Date :</th>
-                  <td>10-01-2018</td>
+                  <td>
+                    <Field
+                      as='select'
+                      type='text'
+                      id='createdAt'
+                      name='createdAt'
+                    >
+                      {listOfInvoices.map((value, key) => (
+                        <option value={value.createdAt}>
+                          {value.createdAt.substring(0, 10)}
+                        </option>
+                      ))}
+                    </Field>
+                  </td>
                 </tr>
                 <tr>
                   <th>Due Date :</th>

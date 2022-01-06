@@ -14,7 +14,7 @@ const EdInvoice = () => {
     clientName: '',
     invoiceNumber: '',
     currency: '',
-    description: '',
+    items: '',
     quantity: '',
     price: '',
   };
@@ -26,7 +26,7 @@ const EdInvoice = () => {
     clientName: Yup.string().required('Name is required').min(5).max(20),
     invoiceNumber: Yup.number().required('Invoice number is required'),
     currency: Yup.string(),
-    description: Yup.string(),
+    items: Yup.string(),
     quantity: Yup.number().required('Quantity is required').positive(),
     price: Yup.number().required('Price is required').positive(),
   });
@@ -84,12 +84,12 @@ const EdInvoice = () => {
             name='currency'
             placeholder='Currency ...'
           />
-          <label htmlFor='description'>Description</label>
+          <label htmlFor='items'>Item</label>
           <Field
             type='text'
-            id='description'
-            name='description'
-            placeholder='Add a description ...'
+            id='items'
+            name='items'
+            placeholder='Add a items ...'
           />
           <label htmlFor='quantity'>Quantity</label>
           <ErrorMessage name='quantity' component='div' className='errmsg' />
