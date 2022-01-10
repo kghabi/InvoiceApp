@@ -10,6 +10,7 @@ const ExportPdf = () => {
   const [listOfOrganisations, setlistOfOrganisations] = useState([]);
   const [select, setSelect] = useState('');
   const [select2, setSelect2] = useState('');
+  const [selected_invoice, setselected_invoice] = useState(null);
 
   useEffect(() => {
     axios.get('http://localhost:8080/api/clients').then((response) => {
@@ -41,6 +42,14 @@ const ExportPdf = () => {
   };
 
   const onSubmit = (data) => {};
+
+  var today = new Date(),
+    date =
+      today.getFullYear() +
+      '-' +
+      (today.getMonth() + 1) +
+      '-' +
+      today.getDate();
 
   return (
     <div className='container'>
@@ -93,14 +102,13 @@ const ExportPdf = () => {
                     onChange={(e) => {
                       const selectedValue = e.target.value;
                       setSelect(selectedValue);
+                      setselected_invoice(
+                        listOfInvoices.find((el) => el.id == selectedValue)
+                      );
                     }}
                   >
                     {listOfInvoices.map((value, key) => (
-                      <option
-                        value={value.invoiceNumber}
-                      >
-                        {value.clientName}
-                      </option>
+                      <option value={value.id}>{value.clientName}</option>
                     ))}
                   </select>
                 </td>
@@ -108,19 +116,24 @@ const ExportPdf = () => {
               <tr>
                 <th>Invoice # :</th>
                 <td>
-                  <div>{select}</div>
+                  <div>
+                    {selected_invoice && selected_invoice.invoiceNumber}
+                  </div>
                 </td>
               </tr>
               <tr>
                 <th>Invoice Date :</th>
                 <td>
-                  <div>{select2}</div>
+                  <div>
+                    {selected_invoice &&
+                      selected_invoice.createdAt.substring(0, 10)}
+                  </div>
                 </td>
               </tr>
               <tr>
                 <th>Due Date :</th>
                 <td>
-                  <div>{select2}</div>
+                  <div>{date}</div>
                 </td>
               </tr>
             </table>
