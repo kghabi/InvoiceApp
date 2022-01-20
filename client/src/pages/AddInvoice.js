@@ -19,6 +19,7 @@ const AddInvoice = () => {
     clientName: '',
     invoiceNumber: '',
     currency: '',
+    description: '',
     items: '',
     quantity: '',
     price: '',
@@ -28,6 +29,7 @@ const AddInvoice = () => {
     clientName: Yup.string().required('Name is required'),
     invoiceNumber: Yup.number().required('Invoice number is required'),
     currency: Yup.string(),
+    description: Yup.string(),
     items: Yup.string(),
     quantity: Yup.number().required('Quantity is required').positive(),
     price: Yup.number().required('Price is required').positive(),
@@ -71,6 +73,13 @@ const AddInvoice = () => {
             id='currency'
             name='currency'
             placeholder='Currency ...'
+          />
+          <label htmlFor='description'>Description</label>
+          <Field
+            type='text'
+            id='description'
+            name='description'
+            placeholder='Description ...'
           />
           <label htmlFor='items'>Item</label>
           <Field

@@ -38,6 +38,7 @@ function Invoice() {
             <th>ِClient Name</th>
             <th>Invoice Number</th>
             <th>Currency</th>
+            <th>description</th>
             <th>Items</th>
             <th>Quantity</th>
             <th>Price</th>
@@ -52,6 +53,7 @@ function Invoice() {
                 <td>{value.clientName}</td>
                 <td>{value.invoiceNumber}</td>
                 <td>{value.currency}</td>
+                <td>{value.description}</td>
                 <td>{value.items}</td>
                 <td>{value.quantity}</td>
                 <td>{value.price}</td>

@@ -8,8 +8,6 @@ const ExportPdf = () => {
   const [listOfClients, setlistOfClients] = useState([]);
   const [listOfInvoices, setlistOfInvoices] = useState([]);
   const [listOfOrganisations, setlistOfOrganisations] = useState([]);
-  const [select, setSelect] = useState('');
-  const [select2, setSelect2] = useState('');
   const [selected_invoice, setselected_invoice] = useState(null);
 
   useEffect(() => {
@@ -43,13 +41,10 @@ const ExportPdf = () => {
 
   const onSubmit = (data) => {};
 
-  var today = new Date(),
-    date =
-      today.getFullYear() +
-      '-' +
-      (today.getMonth() + 1) +
-      '-' +
-      today.getDate();
+  const current = new Date();
+  const date = `${current.getDate()}/${
+    current.getMonth() + 1
+  }/${current.getFullYear()}`;
 
   return (
     <div className='container'>
@@ -101,7 +96,6 @@ const ExportPdf = () => {
                   <select
                     onChange={(e) => {
                       const selectedValue = e.target.value;
-                      setSelect(selectedValue);
                       setselected_invoice(
                         listOfInvoices.find((el) => el.id == selectedValue)
                       );
@@ -111,6 +105,24 @@ const ExportPdf = () => {
                       <option value={value.id}>{value.clientName}</option>
                     ))}
                   </select>
+                </td>
+              </tr>
+              <tr>
+                <th>Address :</th>
+                <td>
+                  <div></div>
+                </td>
+              </tr>
+              <tr>
+                <th>Email :</th>
+                <td>
+                  <div>{}</div>
+                </td>
+              </tr>
+              <tr>
+                <th>Contact :</th>
+                <td>
+                  <div>{}</div>
                 </td>
               </tr>
               <tr>
@@ -149,24 +161,26 @@ const ExportPdf = () => {
         </Row>
 
         <Row style={{ marginTop: 48 }}>
-          <Table
-            dataSource={[
-              {
-                id: 1,
-                name: 'Accommodation (Single Occupancy)',
-                description: 'Accommodation',
-                price: 1599,
-                quantity: 1,
-              },
-            ]}
-            pagination={false}
-          >
-            <Table.Column title='Items' dataIndex='name' />
-            <Table.Column title='Description' dataIndex='description' />
-            <Table.Column title='Quantity' dataIndex='quantity' />
-            <Table.Column title='Price' dataIndex='price' />
-            <Table.Column title='Line Total' />
-          </Table>
+          <div className='container'>
+            <table className='customers'>
+              <thead>
+                <tr>
+                  <th>Items</th>
+                  <th>Description</th>
+                  <th>Quantity</th>
+                  <th>Price</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>{selected_invoice && selected_invoice.items}</td>
+                  <td>{selected_invoice && selected_invoice.description}</td>
+                  <td>{selected_invoice && selected_invoice.quantity}</td>
+                  <td>{selected_invoice && selected_invoice.price}</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
         </Row>
 
         <Row style={{ marginTop: 48 }}>

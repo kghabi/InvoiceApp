@@ -22,6 +22,7 @@ router.put('/:id', async (req, res) => {
       client: req.body.client,
       invoiceNumber: req.body.invoiceNumber,
       currency: req.body.currency,
+      description: req.body.description,
       items: req.body.items,
       quantity: req.body.quantity,
       price: req.body.price,

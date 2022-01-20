@@ -15,15 +15,6 @@ const AddSettings = () => {
 
         <h3>Organisation</h3>
       </div>
-      <div>
-        <button
-          onClick={() => (window.location.href = '/settings/invoice_details')}
-        >
-          <FcDocument size='40px' />
-        </button>
-
-        <h3>Invoice details</h3>
-      </div>
     </div>
   );
 };

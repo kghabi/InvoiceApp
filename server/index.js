@@ -15,12 +15,10 @@ app.use('/resources', express.static('resources'));
 // Define Routers
 const postRouter = require('./routes/api/Invoices');
 const clientRouter = require('./routes/api/Clients');
-const invoiceRouter = require('./routes/api/InvoiceDetails');
 const pdfRouter = require('./routes/PdfExpost');
 
 app.use('/api/invoices', postRouter);
 app.use('/api/clients', clientRouter);
-app.use('/api/settings/invoice_details', invoiceRouter);
 app.use(pdfRouter);
 
 const PORT = 8080;
