@@ -13,11 +13,13 @@ app.use(cors());
 app.use('/resources', express.static('resources'));
 
 // Define Routers
-const postRouter = require('./routes/api/Invoices');
+const usersRouter = require('./routes/api/Users');
+const invoicesRouter = require('./routes/api/Invoices');
 const clientRouter = require('./routes/api/Clients');
 const pdfRouter = require('./routes/PdfExpost');
 
-app.use('/api/invoices', postRouter);
+app.use('/auth', usersRouter);
+app.use('/api/invoices', invoicesRouter);
 app.use('/api/clients', clientRouter);
 app.use(pdfRouter);
 
