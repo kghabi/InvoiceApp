@@ -1,0 +1,14 @@
+@media all and (min-width: 480px) {
+    .signform {
+      padding: 60px 0;
+    }
+  
+    .signform form {
+      margin: 0 auto;
+      max-width: 320px;
+    }
+    .btn{
+      margin: 60px;
+      margin-left: 80px;
+    }
+  }

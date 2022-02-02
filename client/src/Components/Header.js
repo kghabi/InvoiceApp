@@ -21,6 +21,10 @@ const Header = () => {
       setActiveTab('AddSettings');
     } else if (location.pathname === '/settings/invoice_details') {
       setActiveTab('AddSettings');
+    } else if (location.pathname === '/login') {
+      setActiveTab('Login');
+    } else if (location.pathname === '/registration') {
+      setActiveTab('Registration');
     }
   }, [location]);
 
@@ -28,6 +32,22 @@ const Header = () => {
     <div className='header'>
       <p className='logo'> Up Count</p>
       <div className='header-right'>
+        <Link className='linkund' to='/login'>
+          <p
+            className={`${activeTab === 'Login' ? 'active' : ''}`}
+            onClick={() => setActiveTab('Login')}
+          >
+            Login
+          </p>
+        </Link>
+        <Link className='linkund' to='/registration'>
+          <p
+            className={`${activeTab === 'Registration' ? 'active' : ''}`}
+            onClick={() => setActiveTab('Registration')}
+          >
+            Registration
+          </p>
+        </Link>
         <Link className='linkund' to='/'>
           <p
             className={`${activeTab === 'Home' ? 'active' : ''}`}

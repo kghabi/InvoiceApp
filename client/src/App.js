@@ -13,6 +13,8 @@ import AddSettings from './pages/AddSettings';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import EditClient from './pages/EditClient';
 import EditInvoice from './pages/EditInvoice';
+import Login from './pages/Login';
+import Registration from './pages/Registration';
 
 function App() {
   return (
@@ -21,6 +23,8 @@ function App() {
         <Header />
         <ToastContainer position='top-center' />
         <Routes>
+          <Route path='/login' element={<Login />} />
+          <Route path='/registration' element={<Registration />} />
           <Route path='/' exact element={<Home />} />
           <Route path='/addclient' element={<AddEdit />} />
           <Route path='/addinvoice' element={<Invoice />} />
