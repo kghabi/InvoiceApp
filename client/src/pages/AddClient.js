@@ -26,9 +26,13 @@ const AddClient = () => {
   });
 
   const onSubmit = (data) => {
-    axios.post('http://localhost:8080/api/clients', data).then((response) => {
-      navigate('/');
-    });
+    axios
+      .post('http://localhost:8080/api/clients', data, {
+        headers: { accessToken: sessionStorage.getItem('accessToken') },
+      })
+      .then((response) => {
+        navigate('/');
+      });
   };
 
   return (

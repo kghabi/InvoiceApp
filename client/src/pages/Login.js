@@ -3,19 +3,26 @@ import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 import axios from 'axios';
 import '../Form.css';
+import { useNavigate } from 'react-router-dom';
 
 function Login() {
+  const navigate = useNavigate();
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
 
   function validateForm() {
-    return username.length > 5 && password.length > 3;
+    return username.length > 5 && password.length > 5;
   }
 
   const login = () => {
     const data = { username: username, password: password };
     axios.post('http://localhost:8080/auth/login', data).then((response) => {
-      console.log(response.data);
+      if (response.data.error) {
+        alert(response.data.error);
+      } else {
+        sessionStorage.setItem('accessToken', response.data);
+        navigate('/')
+      }
     });
   };
   return (
@@ -38,13 +45,14 @@ function Login() {
             onChange={(e) => setPassword(e.target.value)}
           />
         </Form.Group>
-        <Button
-          size='lg'
-          onClick={login}
-          disabled={!validateForm()}
-        >
+        <Button size='lg' onClick={login} disabled={!validateForm()}>
           Login
         </Button>
+        <div className='text-center'>
+          <p>
+            Not a member? <a href='/registration'>Register</a>
+          </p>
+        </div>
       </Form>
     </div>
   );

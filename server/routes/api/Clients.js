@@ -1,11 +1,12 @@
 const express = require('express');
 const router = express.Router();
 const { Clients } = require('../../models');
+const { validateToken } = require('../../middleware/AuthMiddleware');
 
 // @route    Post api/client
 // @desc     Create a client
 // @access   Public
-router.post('/', async (req, res) => {
+router.post('/', validateToken, async (req, res) => {
   const client = req.body;
   await Clients.create(client);
   res.json(client);
@@ -72,7 +73,7 @@ router.get('/:id', async (req, res) => {
 // @route    Delete api/clients/:id
 // @desc     Delete client by ID
 // @access   Public
-router.delete('/:id', async (req, res) => {
+router.delete('/:id', validateToken, async (req, res) => {
   try {
     const delClient = await Clients.findByPk(req.params.id);
 

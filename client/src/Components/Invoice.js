@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { AiOutlineForm, AiOutlineDelete } from 'react-icons/ai';
-import { toast } from 'react-toastify';
 
 function Invoice() {
   const [listOfInvoices, setListOfInvoices] = useState([]);
@@ -22,10 +21,13 @@ function Invoice() {
   }, []);
 
   const deleteInvoice = (id) => {
-    axios.delete(`http://localhost:8080/api/invoices/${id}`).then((response) => {
-      getList();
-      toast.success('Invoice was deleted', { icon: '🚀', autoClose: 1000 });
-    });
+    axios
+      .delete(`http://localhost:8080/api/invoices/${id}`, {
+        headers: { accessToken: sessionStorage.getItem('accessToken') },
+      })
+      .then((response) => {
+        getList();
+      });
   };
 
   return (

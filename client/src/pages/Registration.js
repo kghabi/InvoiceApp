@@ -3,8 +3,13 @@ import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 import axios from 'axios';
 import '../Form.css';
+import { toast } from 'react-toastify';
+import { useNavigate } from 'react-router-dom';
+
 
 function Registration() {
+  const navigate = useNavigate();
+  
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
 
@@ -15,7 +20,7 @@ function Registration() {
   const registration = () => {
     const data = { username: username, password: password };
     axios.post('http://localhost:8080/auth', data).then((response) => {
-      console.log(response.data);
+      toast.info(response.data, { autoClose: 1000 });
     });
   };
   return (

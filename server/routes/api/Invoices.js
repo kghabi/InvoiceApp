@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const { Invoices } = require('../../models');
+const { validateToken } = require('../../middleware/AuthMiddleware');
 
 // @route    Post api/invoices
 // @desc     Create a invoice
@@ -95,7 +96,7 @@ router.get('/:name', async (req, res) => {
 // @route    Delete api/invoices/:id
 // @desc     Delete invoice by ID
 // @access   Public
-router.delete('/:id', async (req, res) => {
+router.delete('/:id', validateToken, async (req, res) => {
   try {
     const delPost = await Invoices.findByPk(req.params.id);
 

@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { AiOutlineForm, AiOutlineDelete } from 'react-icons/ai';
-import { toast } from 'react-toastify';
 
 function Client() {
   const [listOfclients, setlistOfClients] = useState([]);
@@ -15,10 +14,13 @@ function Client() {
   }, []);
 
   const deleteClient = (id) => {
-    axios.delete(`http://localhost:8080/api/clients/${id}`).then((response) => {
-      getList();
-      toast.success('Client was deleted', { icon: '🚀', autoClose: 1000 });
-    });
+    axios
+      .delete(`http://localhost:8080/api/clients/${id}`, {
+        headers: { accessToken: sessionStorage.getItem('accessToken') },
+      })
+      .then((response) => {
+        getList();
+      });
   };
 
   return (

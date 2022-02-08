@@ -2,6 +2,7 @@ const express = require('express');
 const router = express.Router();
 const { Users } = require('../../models');
 const bcrypt = require('bcrypt');
+const { sign } = require('jsonwebtoken');
 
 // Registration user
 router.post('/', async (req, res) => {
@@ -13,7 +14,7 @@ router.post('/', async (req, res) => {
         username: username,
         password: hash,
       });
-      res.json('SUCCESS');
+      res.json('registered successfully');
     });
   } else {
     res.json('Username Already exist !');
@@ -28,14 +29,19 @@ router.post('/login', async (req, res) => {
 
   if (!user) {
     res.json({ error: "User Doesn't Exist" });
+  } else {
+    bcrypt.compare(password, user.password).then((match) => {
+      if (!match) {
+        res.json({ error: 'Wrong username And Password Combination' });
+      } else {
+        const accessToken = sign(
+          { username: user.username, id: user.id },
+          'importantsecret'
+        );
+        res.json(accessToken);
+      }
+    });
   }
-
-  bcrypt.compare(password, user.password).then((match) => {
-    if (!match) {
-      res.json({ error: 'Wrong username And Password Combination' });
-    }
-    res.json('You Logged IN !!!');
-  });
 });
 
 router.delete('/', async (req, res) => {
