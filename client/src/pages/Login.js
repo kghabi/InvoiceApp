@@ -1,14 +1,16 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 import axios from 'axios';
 import '../Form.css';
 import { useNavigate } from 'react-router-dom';
+import { AuthContext } from '../helpers/AuthContext';
 
 function Login() {
   const navigate = useNavigate();
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
+  const { setAuthState } = useContext(AuthContext);
 
   function validateForm() {
     return username.length > 5 && password.length > 5;
@@ -20,8 +22,9 @@ function Login() {
       if (response.data.error) {
         alert(response.data.error);
       } else {
-        sessionStorage.setItem('accessToken', response.data);
-        navigate('/')
+        localStorage.setItem('accessToken', response.data);
+        setAuthState(true);
+        navigate('/');
       }
     });
   };

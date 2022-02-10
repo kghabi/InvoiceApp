@@ -23,7 +23,7 @@ function Invoice() {
   const deleteInvoice = (id) => {
     axios
       .delete(`http://localhost:8080/api/invoices/${id}`, {
-        headers: { accessToken: sessionStorage.getItem('accessToken') },
+        headers: { accessToken: localStorage.getItem('accessToken') },
       })
       .then((response) => {
         getList();

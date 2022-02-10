@@ -1,19 +1,35 @@
 import React from 'react';
-import { FcOrganization, FcDocument } from 'react-icons/fc';
+import axios from 'axios';
+import Organisation from '../Components/Organisation';
+import { FcDeleteDatabase } from 'react-icons/fc';
+import { toast } from 'react-toastify';
 
 const AddSettings = () => {
+  const deleteOrg = (e) => {
+    axios
+      .delete('http://localhost:8080/api/settings/organisation_settings')
+      .then((response) => {
+        toast.success('All Organisations was deleted', {
+          icon: '🚀',
+          autoClose: 1000,
+        });
+      });
+  };
   return (
-    <div className='parentContainer'>
+    <div>
+      <Organisation />
       <div>
         <button
-          onClick={() =>
-            (window.location.href = '/settings/organisation_settings')
-          }
+          style={{ marginLeft: '1100px', position: 'absolute', top: '800px' }}
+          onClick={deleteOrg}
         >
-          <FcOrganization size='40px' />
+          <FcDeleteDatabase size='40px' />
         </button>
-
-        <h3>Organisation</h3>
+        <h6
+          style={{ marginLeft: '1030px', position: 'absolute', top: '860px' }}
+        >
+          Delete All Organisations Settings
+        </h6>
       </div>
     </div>
   );

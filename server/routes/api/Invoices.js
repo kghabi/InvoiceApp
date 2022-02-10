@@ -6,7 +6,7 @@ const { validateToken } = require('../../middleware/AuthMiddleware');
 // @route    Post api/invoices
 // @desc     Create a invoice
 // @access   Public
-router.post('/', async (req, res) => {
+router.post('/', validateToken, async (req, res) => {
   const invoice = req.body;
   await Invoices.create(invoice);
   res.json(invoice);
@@ -15,7 +15,7 @@ router.post('/', async (req, res) => {
 // @route    Post api/invoices
 // @desc     Edit a invoice
 // @access   Public
-router.put('/:id', async (req, res) => {
+router.put('/:id', validateToken, async (req, res) => {
   try {
     const Invoice = await Invoices.findByPk(req.params.id);
     const id = req.params.id;
@@ -44,7 +44,7 @@ router.put('/:id', async (req, res) => {
 });
 
 // @route    Get api/invoices
-// @desc     Get All invoice
+// @desc     Get All invoices
 // @access   Public
 router.get('/', async (req, res) => {
   const listOfInvoices = await Invoices.findAll();
@@ -119,7 +119,7 @@ router.delete('/:id', validateToken, async (req, res) => {
 // @route    Delete api/invoices
 // @desc     Delete All invoices
 // @access   Public
-router.delete('/', async (req, res) => {
+router.delete('/', validateToken, async (req, res) => {
   try {
     const AllInvoices = await Invoices.findAll();
     if (!AllInvoices == AllInvoices) {

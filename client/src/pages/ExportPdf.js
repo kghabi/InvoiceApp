@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Col, Divider, Row, Table } from 'antd';
+import { Col, Divider, Row } from 'antd';
 import axios from 'axios';
 import 'antd/dist/antd.css';
 import '../ExpPdf.css';
@@ -97,7 +97,7 @@ const ExportPdf = () => {
                     onChange={(e) => {
                       const selectedValue = e.target.value;
                       setselected_invoice(
-                        listOfInvoices.find((el) => el.id == selectedValue)
+                        listOfInvoices.find((el) => el.id === selectedValue)
                       );
                     }}
                   >

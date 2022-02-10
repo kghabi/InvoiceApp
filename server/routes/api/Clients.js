@@ -15,7 +15,7 @@ router.post('/', validateToken, async (req, res) => {
 // @route    Put api/clients
 // @desc     Edit a client
 // @access   Public
-router.put('/:id', async (req, res) => {
+router.put('/:id', validateToken, async (req, res) => {
   try {
     const Client = await Clients.findByPk(req.params.id);
     const id = req.params.id;
@@ -96,7 +96,7 @@ router.delete('/:id', validateToken, async (req, res) => {
 // @route    Delete api/clients
 // @desc     Delete All clients
 // @access   Public
-router.delete('/', async (req, res) => {
+router.delete('/', validateToken, async (req, res) => {
   try {
     const AllClients = await Clients.findAll();
     if (!AllClients == AllClients) {

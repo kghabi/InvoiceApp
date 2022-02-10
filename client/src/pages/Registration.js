@@ -21,6 +21,7 @@ function Registration() {
     const data = { username: username, password: password };
     axios.post('http://localhost:8080/auth', data).then((response) => {
       toast.info(response.data, { autoClose: 1000 });
+      navigate('/login');
     });
   };
   return (

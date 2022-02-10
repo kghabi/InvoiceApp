@@ -33,7 +33,9 @@ const EdClient = () => {
 
   const onSubmit = (data) => {
     axios
-      .put(`http://localhost:8080/api/clients/${id}`, data)
+      .put(`http://localhost:8080/api/clients/${id}`, data, {
+        headers: { accessToken: localStorage.getItem('accessToken') },
+      })
       .then((response) => {
         navigate('/');
       });
@@ -97,10 +99,7 @@ const EdClient = () => {
             name='website'
             placeholder='Add a website ...'
           />
-          <input
-            type='submit'
-            value='Save'
-          />
+          <input type='submit' value='Save' />
         </Form>
       </Formik>
     </div>

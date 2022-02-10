@@ -28,7 +28,7 @@ const AddClient = () => {
   const onSubmit = (data) => {
     axios
       .post('http://localhost:8080/api/clients', data, {
-        headers: { accessToken: sessionStorage.getItem('accessToken') },
+        headers: { accessToken: localStorage.getItem('accessToken') },
       })
       .then((response) => {
         navigate('/');

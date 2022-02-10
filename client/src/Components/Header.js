@@ -32,62 +32,70 @@ const Header = () => {
     <div className='header'>
       <p className='logo'> Up Count</p>
       <div className='header-right'>
-        <Link className='linkund' to='/login'>
-          <p
-            className={`${activeTab === 'Login' ? 'active' : ''}`}
-            onClick={() => setActiveTab('Login')}
-          >
-            Login
-          </p>
-        </Link>
-        <Link className='linkund' to='/registration'>
-          <p
-            className={`${activeTab === 'Registration' ? 'active' : ''}`}
-            onClick={() => setActiveTab('Registration')}
-          >
-            Registration
-          </p>
-        </Link>
-        <Link className='linkund' to='/'>
-          <p
-            className={`${activeTab === 'Home' ? 'active' : ''}`}
-            onClick={() => setActiveTab('Home')}
-          >
-            Home
-          </p>
-        </Link>
-        <Link className='linkund' to='/addclient'>
-          <p
-            className={`${activeTab === 'AddClient' ? 'active' : ''}`}
-            onClick={() => setActiveTab('AddClient')}
-          >
-            Add Client
-          </p>
-        </Link>
-        <Link className='linkund' to='/addinvoice'>
-          <p
-            className={`${activeTab === 'AddInvoice' ? 'active' : ''}`}
-            onClick={() => setActiveTab('AddInvoice')}
-          >
-            Add Invoice
-          </p>
-        </Link>
-        <Link className='linkund' to='/settings'>
-          <p
-            className={`${activeTab === 'AddSettings' ? 'active' : ''}`}
-            onClick={() => setActiveTab('AddSettings')}
-          >
-            Settings
-          </p>
-        </Link>
-        <Link className='linkund' to='/exportPdf'>
-          <p
-            className={`${activeTab === 'ExportPdf' ? 'active' : ''}`}
-            onClick={() => setActiveTab('ExportPdf')}
-          >
-            ExportPdf
-          </p>
-        </Link>
+        {!localStorage.getItem('accessToken') && (
+          <>
+            <Link className='linkund' to='/login'>
+              <p
+                className={`${activeTab === 'Login' ? 'active' : ''}`}
+                onClick={() => setActiveTab('Login')}
+              >
+                Login
+              </p>
+            </Link>
+            <Link className='linkund' to='/registration'>
+              <p
+                className={`${activeTab === 'Registration' ? 'active' : ''}`}
+                onClick={() => setActiveTab('Registration')}
+              >
+                Registration
+              </p>
+            </Link>
+          </>
+        )}
+        {localStorage.getItem('accessToken') && (
+          <>
+            <Link className='linkund' to='/'>
+              <p
+                className={`${activeTab === 'Home' ? 'active' : ''}`}
+                onClick={() => setActiveTab('Home')}
+              >
+                Home
+              </p>
+            </Link>
+            <Link className='linkund' to='/addclient'>
+              <p
+                className={`${activeTab === 'AddClient' ? 'active' : ''}`}
+                onClick={() => setActiveTab('AddClient')}
+              >
+                Add Client
+              </p>
+            </Link>
+            <Link className='linkund' to='/addinvoice'>
+              <p
+                className={`${activeTab === 'AddInvoice' ? 'active' : ''}`}
+                onClick={() => setActiveTab('AddInvoice')}
+              >
+                Add Invoice
+              </p>
+            </Link>
+            <Link className='linkund' to='/settings'>
+              <p
+                className={`${activeTab === 'AddSettings' ? 'active' : ''}`}
+                onClick={() => setActiveTab('AddSettings')}
+              >
+                Settings
+              </p>
+            </Link>
+            <Link className='linkund' to='/exportPdf'>
+              <p
+                className={`${activeTab === 'ExportPdf' ? 'active' : ''}`}
+                onClick={() => setActiveTab('ExportPdf')}
+              >
+                ExportPdf
+              </p>
+            </Link>
+          </>
+        )}
       </div>
     </div>
   );
