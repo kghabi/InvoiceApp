@@ -36,9 +36,13 @@ const AddInvoice = () => {
   });
 
   const onSubmit = (data) => {
-    axios.post('http://localhost:8080/api/invoices', data).then((response) => {
-      navigate('/');
-    });
+    axios
+      .post('http://localhost:8080/api/invoices', data, {
+        headers: { accessToken: localStorage.getItem('accessToken') },
+      })
+      .then((response) => {
+        navigate('/');
+      });
   };
   return (
     <div className='Formik'>

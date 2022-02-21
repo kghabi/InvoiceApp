@@ -28,6 +28,11 @@ const Header = () => {
     }
   }, [location]);
 
+  const logout = () => {
+    localStorage.removeItem('accessToken');
+    window.location.href = '/login/'
+  };
+
   return (
     <div className='header'>
       <p className='logo'> Up Count</p>
@@ -93,6 +98,14 @@ const Header = () => {
               >
                 ExportPdf
               </p>
+            </Link>
+            <Link to='/'>
+              <button
+                onClick={logout}
+                style={{ margin: '20px', cursor: 'pointer' }}
+              >
+                Logout
+              </button>
             </Link>
           </>
         )}

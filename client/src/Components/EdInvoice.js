@@ -35,7 +35,9 @@ const EdInvoice = () => {
 
   const onSubmit = (data) => {
     axios
-      .put(`http://localhost:8080/api/invoices/${id}`, data)
+      .put(`http://localhost:8080/api/invoices/${id}`, data, {
+        headers: { accessToken: localStorage.getItem('accessToken') },
+      })
       .then((response) => {
         navigate('/');
       });

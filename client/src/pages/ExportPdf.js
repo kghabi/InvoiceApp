@@ -97,7 +97,7 @@ const ExportPdf = () => {
                     onChange={(e) => {
                       const selectedValue = e.target.value;
                       setselected_invoice(
-                        listOfInvoices.find((el) => el.id === selectedValue)
+                        listOfInvoices.find((el) => el.id == selectedValue)
                       );
                     }}
                   >
